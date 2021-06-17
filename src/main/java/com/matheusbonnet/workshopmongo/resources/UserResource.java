@@ -25,6 +25,7 @@ public class UserResource {
 	private UserService service;
 	
 	@RequestMapping(method = RequestMethod.GET)	
+	
 	public ResponseEntity<List<UserDTO>> findAll() {
 		List<User> list = service.findAll();
 		List<UserDTO> dto = list.stream().map(x -> new UserDTO(x)).collect(Collectors.toList());
@@ -32,12 +33,14 @@ public class UserResource {
 	}
 	
 	@RequestMapping(value = "/{id:.*}", method = RequestMethod.GET)	
+	
 	public ResponseEntity<UserDTO> findById(@PathVariable("id") final String id) {
 		User obj = service.findById(id);
 		return ResponseEntity.ok().body(new UserDTO(obj));
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)	
+	
 	public ResponseEntity<Void> insert(@RequestBody UserDTO objDto) {
 		User obj = service.fromDTO(objDto);
 		obj = service.insert(obj);
@@ -46,12 +49,14 @@ public class UserResource {
 	}
 	
 	@RequestMapping(value = "/{id:.*}", method = RequestMethod.DELETE)	
+	
 	public ResponseEntity<Void> delete(@PathVariable("id") final String id) {
 		service.delete(id);
 		return ResponseEntity.noContent().build();
 	}
 	
-	@RequestMapping(value = "/{id:.*}", method = RequestMethod.PUT)	
+	@RequestMapping(value = "/{id:.*}", method = RequestMethod.PUT)
+	
 	public ResponseEntity<Void> update(@RequestBody UserDTO objDto, @PathVariable("id") final String id) {
 		User obj = service.fromDTO(objDto);
 		obj.setId(id);
